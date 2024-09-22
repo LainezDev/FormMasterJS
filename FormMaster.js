@@ -4,7 +4,7 @@ function OnFailed(error) {
 
 function eliminarFila(spanElement) {
     if (spanElement) {
-        let confirmacion = confirm('øEst· seguro de que deseas eliminar este documento?');
+        let confirmacion = confirm('¬øEst√° seguro de que deseas eliminar este documento?');
         if (confirmacion) {
             let fila = spanElement.parentElement.parentElement;
             fila.parentElement.deleteRow(fila.rowIndex);
@@ -67,7 +67,7 @@ function cargarDocumentos(documentosJson) {
             //fechaDocumentoInput.value = doc.Fecha;
             cellFechaDocumento.appendChild(fechaDocumentoInput);
 
-            // Columna Fecha RecepciÛn
+            // Columna Fecha Recepci√≥n
             const cellFechaRecepcion = newRow.insertCell(6);
             const fechaRecepcionInput = document.createElement('input');
             fechaRecepcionInput.type = 'date';
@@ -148,7 +148,7 @@ function loadForm(configJson, GetFormData) {
     formGroup.method = configJson.formmethod || 'POST';
     formContainer.appendChild(formGroup);
 
-    //tamaÒo del form
+    //tama√±o del form
     principalDiv = document.getElementById("div-principal");
     const formSizeCss = getFormSizeCss(configJson.formsize);
     principalDiv.classList.add(formSizeCss);
@@ -177,7 +177,7 @@ function loadForm(configJson, GetFormData) {
 function fillFormData(data, tableName, fieldpk) {
 
     if (!data || Object.keys(data).length === 0) {
-        showNotification('error', 'Error: No se ha proporcionado informaciÛn en los datos. Si el error persiste, por favor contacte a soporte.');
+        showNotification('error', 'Error: No se ha proporcionado informaci√≥n en los datos. Si el error persiste, por favor contacte a soporte.');
         return;
     }
 
@@ -200,7 +200,7 @@ function fillFormData(data, tableName, fieldpk) {
                 if (record[fieldpk] !== undefined && record[fieldpk] !== null) {
                     sessionStorage.setItem(fieldpk, record[fieldpk]);
                 } else {
-                    // Obtener el ID desde los par·metros de la URL si no est· en el registro
+                    // Obtener el ID desde los par√°metros de la URL si no est√° en el registro
                     const params = new URLSearchParams(window.location.search);
                     const id = params.get(fieldpk);
                     if (id !== null) {
@@ -213,7 +213,7 @@ function fillFormData(data, tableName, fieldpk) {
 
             if (element) {
                 if (element.type === 'radio') {
-                    // Para radio buttons, busca todos los elementos con el nombre com˙n y marca el correcto
+                    // Para radio buttons, busca todos los elementos con el nombre com√∫n y marca el correcto
                     const radioButtons = document.getElementsByName(element.name);
                     for (var i = 0; i < radioButtons.length; i++) {
                         if (radioButtons[i].value === value) {
@@ -294,9 +294,9 @@ function generateTabs(jsonConfigTabs, DefaultFormID, isModalForm) {
 	const ulDataTabsToggle = '#' + tabID;
 	ul.setAttribute('data-tabs-toggle', ulDataTabsToggle);
 	
-	  // Crear el contenido de cada pestaÒa
+	  // Crear el contenido de cada pesta√±a
 	jsonConfigTabs.forEach(tab => {
-		// Crear el botÛn de la pestaÒa
+		// Crear el bot√≥n de la pesta√±a
 		const li = document.createElement('div');
 		li.className = 'me-2';
 		li.setAttribute('role', 'presentation');
@@ -314,7 +314,7 @@ function generateTabs(jsonConfigTabs, DefaultFormID, isModalForm) {
 		li.appendChild(button);
 		ul.appendChild(li);
 
-		// Crear el contenido de la pestaÒa
+		// Crear el contenido de la pesta√±a
 		const div = document.createElement('div');
 		div.className = 'hidden p-4 rounded-lg dark:bg-gray-800';
 		div.id = tab.fieldname.replace(/\s+/g, '-');
@@ -357,7 +357,7 @@ function generateForm(config, elementID, isModalForm) {
         formGroup.className = 'grid gap-4 mb-4 sm:grid-cols-' + config.formcolumns;
     }
 
-    // Crear y agregar el tÌtulo de la p·gina
+    // Crear y agregar el t√≠tulo de la p√°gina
     const titleContainer = document.createElement('div');
     // titleContainer.className = 'flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600';
 	const title = document.createElement('h3');
@@ -396,7 +396,7 @@ function generateForm(config, elementID, isModalForm) {
                     inputElement = document.createElement('select');
                     inputElement.id = prefixID + '-' + field.fieldname;
                     inputElement.name = prefixID + '-' + field.fieldname;
-                    // Crear y agregar la opciÛn "Seleccione una opciÛn"
+                    // Crear y agregar la opci√≥n "Seleccione una opci√≥n"
                     const defaultOption = document.createElement('option');
                     defaultOption.value = "0";
                     defaultOption.textContent = field.defaultoption || "Seleccione una opci\u00F3n";
@@ -645,9 +645,9 @@ function generateFormItems(field, ModalDivContent) {
     //const caption = document.createElement('caption');
     //caption.classList.add('p-5', 'text-lg', 'font-semibold', 'text-left', 'rtl:text-right', 'text-gray-900', 'bg-white', 'dark:text-white', 'dark:bg-gray-800');
     //caption.innerHTML = `
-    //    ${field.label || 'TÌtulo de la tabla'}
+    //    ${field.label || 'T√≠tulo de la tabla'}
     //    <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-    //        ${field.description || 'DescripciÛn de la tabla'}
+    //        ${field.description || 'Descripci√≥n de la tabla'}
     //    </p>
     //`;
     //table.appendChild(caption);
@@ -657,7 +657,7 @@ function generateFormItems(field, ModalDivContent) {
     tbody.id = field.fieldname + '-tbody';
     table.appendChild(tbody);
 
-    // Agregar el botÛn para aÒadir nuevas filas
+    // Agregar el bot√≥n para a√±adir nuevas filas
     const button = document.createElement('button');
     button.type = 'button';
     button.id = 'btncreate' + field.fieldname;
@@ -681,12 +681,12 @@ function generateFormItems(field, ModalDivContent) {
         const submitButtonId = generateAddItemButton(field.fieldname);
         addButtonClickSaveForm(submitButtonId, formName, field.fieldname, field.pkfield, field.fkfield, modalName, true);
     });
-    // AÒadir elementos al contenedor
+    // A√±adir elementos al contenedor
     
     container.appendChild(table);
     container.appendChild(divbuttons);
 
-    // AÒadir el contenedor al documento
+    // A√±adir el contenedor al documento
     principalDiv.appendChild(container);
 }
 
@@ -734,7 +734,7 @@ function createModal(field, parentFkfield) {
     modalForm.method = 'post'; 
     document.body.appendChild(modalForm);   
 
-    // Crear el pie del modal con el botÛn de enviar
+    // Crear el pie del modal con el bot√≥n de enviar
     //const submitButton = document.createElement('button');
     //const submitButtonId = field.formname + '-' + 'formMasterSaveItemBtn';
     //submitButton.type = 'submit';
@@ -742,23 +742,23 @@ function createModal(field, parentFkfield) {
     //submitButton.innerHTML = '<svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>Guardar';
     //submitButton.id = submitButtonId;
     
-    // AÒadir el header, form, y el pie al contenido del modal
+    // A√±adir el header, form, y el pie al contenido del modal
     modalContent.appendChild(modalHeader);
     modalContent.appendChild(modalForm);
 
-    // AÒadir el contenido del modal al contenedor
+    // A√±adir el contenido del modal al contenedor
     modalContentWrapper.appendChild(modalContent);
     modalContainer.appendChild(modalContentWrapper);
 
-    // AÒadir el modal completo al cuerpo del documento
+    // A√±adir el modal completo al cuerpo del documento
     document.body.appendChild(modalContainer);
 
     generateForm(field, field.formname, true);
-    //modalForm.appendChild(submitButton); //Agregar el botÛn submit al modal del item.
+    //modalForm.appendChild(submitButton); //Agregar el bot√≥n submit al modal del item.
 
 
     //const htmlFormName = 'form' + field.formname;
-    //Agrego la funcionalidad al botÛn para agregar items. ˙ltimo par·metro en true para indicar que es un boton de un item del form principal.
+    //Agrego la funcionalidad al bot√≥n para agregar items. √∫ltimo par√°metro en true para indicar que es un boton de un item del form principal.
 
     //addButtonClickSaveForm(submitButton.id, htmlFormName, field.tablename, field.fieldpk, parentFkfield, modalName, true);
 
@@ -804,7 +804,7 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
         thead.className = 'text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400';
         const headerRow = document.createElement('tr');
 
-        // Crear las columnas seg˙n el par·metro 'columns'		
+        // Crear las columnas seg√∫n el par√°metro 'columns'		
         columnNames.forEach(column => {
             const th = document.createElement('th');
             th.scope = 'col';
@@ -849,7 +849,7 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
             columnNames.forEach(column => {
                 const td = document.createElement('td');
                 td.className = 'px-4 py-3';
-                td.textContent = row[column] || '';  // Mostrar datos o vacÌo si no hay valor
+                td.textContent = row[column] || '';  // Mostrar datos o vac√≠o si no hay valor
                 tr.appendChild(td);
             });
 
@@ -858,14 +858,14 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
                 const tdActions = document.createElement('td');
                 tdActions.className = 'px-4 py-3 flex items-center justify-end';
 
-                // BotÛn desplegable para las acciones
+                // Bot√≥n desplegable para las acciones
                 const dropdownButton = document.createElement('button');
                 dropdownButton.id = `${fieldname}-dropdown-button-${rowId}`;
                 dropdownButton.dataset.dropdownToggle = `${fieldname}-dropdown-${rowId}`;
                 dropdownButton.className = 'inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100';
                 dropdownButton.type = 'button';
 
-                // Agregar el Ìcono al botÛn de acciones
+                // Agregar el √≠cono al bot√≥n de acciones
                 const iconSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 iconSvg.classList.add("w-5", "h-5");
                 iconSvg.setAttribute("fill", "currentColor");
@@ -879,7 +879,7 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
                 dropdownButton.appendChild(iconSvg);
                 tdActions.appendChild(dropdownButton);
 
-                // Crear el men˙ desplegable
+                // Crear el men√∫ desplegable
                 const dropdownDiv = document.createElement('div');
                 dropdownDiv.id = `${fieldname}-dropdown-${rowId}`;
                 dropdownDiv.className = 'hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600';
@@ -888,7 +888,7 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
                 dropdownUl.className = 'py-1 text-sm text-gray-700 dark:text-gray-200';
                 dropdownUl.setAttribute('aria-labelledby', `${fieldname}-dropdown-button-${rowId}`);
 
-                // Crear la opciÛn de editar
+                // Crear la opci√≥n de editar
                 const editDiv = document.createElement('div');
                 const editLink = document.createElement('a');
                 editLink.href = '#';
@@ -900,7 +900,7 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
                 editDiv.appendChild(editLink);
                 dropdownUl.appendChild(editDiv);
 
-                // Crear la opciÛn de eliminar
+                // Crear la opci√≥n de eliminar
                 const deleteDiv = document.createElement('div');
                 deleteDiv.className = 'py-1';
 
@@ -915,7 +915,7 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
                 });
 
                 const fullDataRow = TableData.fulldatarow.find(fullRow => {
-                    // Convertimos ambas claves a min˙sculas para hacer la comparaciÛn
+                    // Convertimos ambas claves a min√∫sculas para hacer la comparaci√≥n
                     return Object.keys(fullRow).find(key => key.toLowerCase() === primarykey.toLowerCase())
                         && fullRow[Object.keys(fullRow).find(key => key.toLowerCase() === primarykey.toLowerCase())] === rowId;
                 });
@@ -942,9 +942,9 @@ function GenerateTable(labelTable, descriptionTable, fieldname, columns, actions
     const caption = document.createElement('caption');
     caption.classList.add('p-5', 'text-lg', 'font-semibold', 'text-left', 'rtl:text-right', 'text-gray-900', 'bg-white', 'dark:text-white', 'dark:bg-gray-800');
     caption.innerHTML = `
-        ${labelTable || 'TÌtulo de la tabla'}
+        ${labelTable || 'T√≠tulo de la tabla'}
         <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-            ${descriptionTable || 'DescripciÛn de la tabla'}
+            ${descriptionTable || 'Descripci√≥n de la tabla'}
         </p>
     `;
     table.appendChild(caption);
@@ -988,7 +988,7 @@ function removeRowInTableOK(id) {
                 row.remove();
             }, 2000);
         } else {
-            showNotification('error', 'Se ha presentado un error con su solicitud. No se encontrÛ el elemento con ID: ' + elementID);
+            showNotification('error', 'Se ha presentado un error con su solicitud. No se encontr√≥ el elemento con ID: ' + elementID);
         }
     } else {
         showNotification('error', 'Error: ID no proporcionado');
@@ -997,7 +997,7 @@ function removeRowInTableOK(id) {
 
 function removeRowInTable(e, tableName, idrow, pkfield) {
     if (idrow) {
-        if (confirm('øDesea eliminar este registro?')) {
+        if (confirm('¬øDesea eliminar este registro?')) {
             PageMethods.RemoveItemsTable(
                 tableName,
                 idrow,
@@ -1042,7 +1042,7 @@ function updateOrCreateRow(tableName, data, rowId, primarykey, columns, actions,
             const tdActions = document.createElement('td');
             tdActions.className = 'px-4 py-3 flex items-center justify-end';
 
-            // BotÛn desplegable para las acciones
+            // Bot√≥n desplegable para las acciones
             const dropdownButton = document.createElement('button');
             dropdownButton.id = `${fieldname}-dropdown-button-${rowId}`;
             dropdownButton.dataset.dropdownToggle = `${fieldname}-dropdown-${rowId}`;
@@ -1062,7 +1062,7 @@ function updateOrCreateRow(tableName, data, rowId, primarykey, columns, actions,
             dropdownButton.appendChild(iconSvg);
             tdActions.appendChild(dropdownButton);
 
-            // Crear el men˙ desplegable
+            // Crear el men√∫ desplegable
             const dropdownDiv = document.createElement('div');
             dropdownDiv.id = `${fieldname}-dropdown-${rowId}`;
             dropdownDiv.className = 'hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600';
@@ -1071,7 +1071,7 @@ function updateOrCreateRow(tableName, data, rowId, primarykey, columns, actions,
             dropdownUl.className = 'py-1 text-sm text-gray-700 dark:text-gray-200';
             dropdownUl.setAttribute('aria-labelledby', `${fieldname}-dropdown-button-${rowId}`);
 
-            // Crear la opciÛn de editar
+            // Crear la opci√≥n de editar
             const editDiv = document.createElement('div');
             const editLink = document.createElement('a');
             editLink.href = '#';
@@ -1083,7 +1083,7 @@ function updateOrCreateRow(tableName, data, rowId, primarykey, columns, actions,
             editDiv.appendChild(editLink);
             dropdownUl.appendChild(editDiv);
 
-            // Crear la opciÛn de eliminar
+            // Crear la opci√≥n de eliminar
             const deleteDiv = document.createElement('div');
             deleteDiv.className = 'py-1';
             const deleteLink = document.createElement('a');
@@ -1122,7 +1122,7 @@ function updateOrCreateRow(tableName, data, rowId, primarykey, columns, actions,
     } else {
         tbodyEl.appendChild(tr);
     }
-    // AÒadir efecto de fade-out para el color verde despuÈs de 2 segundos
+    // A√±adir efecto de fade-out para el color verde despu√©s de 2 segundos
     setTimeout(() => {
         tr.classList.remove('bg-green-200');
     }, 2000);
@@ -1131,7 +1131,7 @@ function updateOrCreateRow(tableName, data, rowId, primarykey, columns, actions,
 
     //creo el evento afterRowCreated
     const eventName = 'rowCreated-' + tr.id;
-    // El evento entrega todo el html de la fila para recorrerlo y hacer lo que se necesite con Èl.
+    // El evento entrega todo el html de la fila para recorrerlo y hacer lo que se necesite con √©l.
     const event = new CustomEvent(eventName, {
         detail: tr
     });
@@ -1203,7 +1203,7 @@ function addButtonClickSaveForm(buttonId, formId, tableName, fieldpk, parentFkfi
     button.type = 'submit';
     button.setAttribute('form', formId);
 
-    // Crear el manejador especÌfico para el botÛn
+    // Crear el manejador espec√≠fico para el bot√≥n
     const eventHandler = item
         ? (e) => handleSaveItemClick(e, formId, tableName, fieldpk, parentFkfield, modalName, rowId)
         : (e) => handleSaveClick(e, formId, tableName, fieldpk);
@@ -1215,7 +1215,7 @@ function addButtonClickSaveForm(buttonId, formId, tableName, fieldpk, parentFkfi
 
 
 //function FormMasterBtnSaveHandleClick(formId, tableName, fieldpk) {
-//    // Llamar a la funciÛn formToJson y pasar el formId
+//    // Llamar a la funci√≥n formToJson y pasar el formId
 //    const prefixID = tableName + '-';
 //    const formDataJson = JSON.stringify(formToJson(formId, prefixID));
 //    //console.log(formDataJson);
@@ -1272,7 +1272,7 @@ function FormMasterBtnSaveHandleClick(formId, tableName, fieldpk) {
 
 
 function FormMasterBtnItemSaveHandleClick(formId, tableName, fieldpk, parentFkfield, modalName, rowId = null) {
-    // Llamar a la funciÛn formToJson y pasar el formId
+    // Llamar a la funci√≥n formToJson y pasar el formId
     const prefixID = tableName + '-';
     const formDataJson = JSON.stringify(formToJson(formId, prefixID));
     //console.log(formDataJson);
@@ -1308,12 +1308,12 @@ function formToJson(formId, prefixID) {
     // Obtengo el formulario por su ID
     const form = document.getElementById(formId);
 
-    // Creo un objeto vacÌo para almacenar los valores
+    // Creo un objeto vac√≠o para almacenar los valores
     const formData = {};
 
     // Recorro todos los elementos del formulario
     Array.from(form.elements).forEach(element => {
-        // Verificar si el elemento tiene un nombre y no est· deshabilitado
+        // Verificar si el elemento tiene un nombre y no est√° deshabilitado
         if (element.name && !element.disabled) {
             // Dependiendo del tipo de campo, obtener su valor
             if (element.type === 'checkbox') {
@@ -1361,7 +1361,7 @@ function removePrefixFromKeys(data, prefix = null) {
 
 
 function FormMasterGetId(fieldpk) {
-    // obtener el id desde los par·metros de la URL
+    // obtener el id desde los par√°metros de la URL
     const params = new URLSearchParams(window.location.search);
     let id = params.get(fieldpk);
 
@@ -1385,14 +1385,14 @@ function FormMasterOnInsertSuccess(jsonObject) {
             // Guardar el id en sessionStorage
             sessionStorage.setItem(fieldpk, fieldpkValue);
             updateIframeSrcWithId(fieldpk, fieldpkValue);
-            // creo el evento despuÈs de insertar o actualizar. ideal para hacer otros procesos.
+            // creo el evento despu√©s de insertar o actualizar. ideal para hacer otros procesos.
             FormMasterAfterSubmit(formDataJson);
             showNotification('success', 'Formulario guardado con \u00E9xito');
         } else {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.error);
+        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
     }
 }
 
@@ -1408,14 +1408,14 @@ function FormMasterOnUpdateSuccess(jsonObject) {
 
             // Guardar el id en sessionStorage
             sessionStorage.setItem(fieldpk, fieldpkValue);
-            // creo el evento despuÈs de insertar o actualizar. ideal para hacer otros procesos.
+            // creo el evento despu√©s de insertar o actualizar. ideal para hacer otros procesos.
             FormMasterAfterSubmit(formDataJson);
             showNotification('success', 'Formulario guardado con \u00E9xito');
         } else {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.error.toString());
+        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
     }
 }
 
@@ -1425,7 +1425,7 @@ function FormMasterOnInsertItemSuccess(jsonObject) {
         const fieldpk = formDataJson.fieldpk;
         const fieldpkValue = formDataJson[fieldpk];
         if (fieldpkValue > 0) {           
-            // creo el evento despuÈs de insertar o actualizar. ideal para hacer otros procesos.
+            // creo el evento despu√©s de insertar o actualizar. ideal para hacer otros procesos.
             FormMasterAfterItemSubmit(formDataJson);
             //const btnID = 'btncreate' + formDataJson.tableName;
             //const btnCreate = document.getElementById(btnID);
@@ -1456,7 +1456,7 @@ function FormMasterOnUpdateItemSuccess(jsonObject) {
         const fieldpk = formDataJson.fieldpk;
         const fieldpkValue = formDataJson[fieldpk];
         if (fieldpkValue > 0) {
-            // creo el evento despuÈs de insertar o actualizar. ideal para hacer otros procesos.
+            // creo el evento despu√©s de insertar o actualizar. ideal para hacer otros procesos.
             FormMasterAfterItemSubmit(formDataJson);
             //const btnID = 'btncreate' + formDataJson.tableName;
             //const btnCreate = document.getElementById(btnID);
@@ -1484,7 +1484,7 @@ function FormMasterDate(dateString, format = 'YYYY-MM-DD HH:mm:ss') {
     const date = new Date(dateString);
 
     if (isNaN(date)) {
-        return 'Fecha no v·lida';
+        return 'Fecha no v√°lida';
     }
 
     // Extraemos las partes de la fecha
@@ -1495,7 +1495,7 @@ function FormMasterDate(dateString, format = 'YYYY-MM-DD HH:mm:ss') {
     const minutes = String(date.getUTCMinutes()).padStart(2, '0');
     const seconds = String(date.getUTCSeconds()).padStart(2, '0');
 
-    // Reemplazamos seg˙n el formato proporcionado
+    // Reemplazamos seg√∫n el formato proporcionado
     let formattedDate = format
         .replace('YYYY', year)
         .replace('MM', month)
@@ -1526,7 +1526,7 @@ function FormMasterBeforeSubmit(formDataJson) {
         // Disparar el evento
         document.dispatchEvent(event);
 
-        // Esperar un corto tiempo para permitir la manipulaciÛn
+        // Esperar un corto tiempo para permitir la manipulaci√≥n
         setTimeout(() => {
             if (event.preventSubmit) {
                 reject(event.errorMessage || 'Su solicitud no se pudo procesar.');
@@ -1567,7 +1567,7 @@ function addParamsSrcIframesTabs(jsonConfigTabs, fieldpk) {
                 if (iframe) { 
                     const currentSrc = iframe.src;
 
-                    // Verificar si el src del iframe contiene el par·metro fieldpk
+                    // Verificar si el src del iframe contiene el par√°metro fieldpk
                     if (currentSrc.includes(fieldpk + '=')) {
                         const newSrc = currentSrc.replace(new RegExp(fieldpk + '=[^&]*'), fieldpk + '=' + id);
                         iframe.src = newSrc;
@@ -1578,7 +1578,7 @@ function addParamsSrcIframesTabs(jsonConfigTabs, fieldpk) {
             }
         });
     } else {
-        alert('OcurriÛ un problema al crear el formulario actual y sus pestaÒas. Si el problema persiste comunÌquese con soporte. Error: No se encuentra el id para crear los tabs del formulario');
+        alert('Ocurri√≥ un problema al crear el formulario actual y sus pesta√±as. Si el problema persiste comun√≠quese con soporte. Error: No se encuentra el id para crear los tabs del formulario');
     }
 }
 
@@ -1590,7 +1590,7 @@ function updateIframeSrcWithId(fieldpk, id) {
     iframes.forEach(iframe => {
         const currentSrc = iframe.src;
 
-        // Verificar si el src del iframe contiene el par·metro fieldpk
+        // Verificar si el src del iframe contiene el par√°metro fieldpk
         if (currentSrc.includes(fieldpk + '=')) {
             const newSrc = currentSrc.replace(new RegExp(fieldpk + '=[^&]*'), fieldpk + '=' + id);
             iframe.src = newSrc; 
@@ -1603,7 +1603,7 @@ function showNotification(type, message) {
     const notification = document.createElement('div');
     notification.classList.add('notification');
 
-    // estilo base de la notificaciÛn
+    // estilo base de la notificaci√≥n
     notification.style.position = 'fixed';
     notification.style.bottom = '20px';
     notification.style.right = '20px';
@@ -1625,17 +1625,17 @@ function showNotification(type, message) {
 
     document.body.appendChild(notification);
 
-    // TIEMPO notificaciÛn 3 segundos
+    // TIEMPO notificaci√≥n 3 segundos
     setTimeout(() => {
-        notification.style.opacity = '0'; // Suavizar la desapariciÛn
+        notification.style.opacity = '0'; // Suavizar la desaparici√≥n
         setTimeout(() => {
             notification.remove();
-        }, 500); // Esperar medio segundo para eliminar despuÈs de la animaciÛn
+        }, 500); // Esperar medio segundo para eliminar despu√©s de la animaci√≥n
     }, 3000);
 }
 
 function getFormSizeCss(size) {
-    // Dict con los tamaÒos de form definidos por flowbite
+    // Dict con los tama√±os de form definidos por flowbite
     const sizeDict = {
         small: 'max-w-md',
         default: 'max-w-lg',
@@ -1687,7 +1687,7 @@ function createDuplicateModal(containerId, pkfield, duplicatewithchildren) {
     const modalContent = document.createElement('div');
     modalContent.className = "relative bg-white rounded-lg shadow dark:bg-gray-700";
 
-    // BotÛn para cerrar el modal
+    // Bot√≥n para cerrar el modal
     const closeButton = document.createElement('button');
     closeButton.type = "button";
     closeButton.className = "absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white";
@@ -1801,11 +1801,11 @@ function createDuplicateModal(containerId, pkfield, duplicatewithchildren) {
     if (container) {
         container.appendChild(modal);
     } else {
-        console.error(`No se encontrÛ el contenedor con ID: ${containerId}`);
+        console.error(`No se encontr√≥ el contenedor con ID: ${containerId}`);
     }
 }
 
-// FunciÛn para actualizar el valor del input seg˙n el select
+// Funci√≥n para actualizar el valor del input seg√∫n el select
 function InputValueDuplicateModal() {
     const select = document.getElementById("duplicateCountSelect");
     const input = document.getElementById("duplicateCountInput");
@@ -1821,7 +1821,7 @@ function InputValueDuplicateModal() {
 
 function DuplicateForm(pkfield, formId) {
     if (pkfield && formId) {
-        if (confirm('øDesea duplicar este formulario?')) {
+        if (confirm('¬øDesea duplicar este formulario?')) {
             const id = FormMasterGetId(pkfield);
             const formDataJson = JSON.stringify(formToJson(formId, null));
             const form = document.getElementById(formId);
@@ -1867,16 +1867,16 @@ function FormMasterAfterDuplicate(formDataJson) {
 
 const utilityActions = {
     share: function () {
-        // AcciÛn de compartir
+        // Acci√≥n de compartir
     },
     print: function () {
-        // AcciÛn de imprimir
+        // Acci√≥n de imprimir
     },
     download: function () {
-        // AcciÛn de descargar
+        // Acci√≥n de descargar
     },
     duplicate: function () {
-        // AcciÛn de duplicar
+        // Acci√≥n de duplicar
     },
     initButtons: function (optionsString) {
         const allButtons = {
@@ -1894,10 +1894,10 @@ const utilityActions = {
         // Dividir el string en un array de opciones
         const options = optionsString.split(',').map(option => option.trim());
 
-        // Mostrar solo los botones que est·n en las opciones
+        // Mostrar solo los botones que est√°n en las opciones
         options.forEach(option => {
             if (allButtons[option]) {
-                allButtons[option].style.display = 'flex'; // O 'block' seg˙n lo que necesites
+                allButtons[option].style.display = 'flex'; // O 'block' seg√∫n lo que necesites
             }
         });
     }
@@ -2045,7 +2045,7 @@ function FormMasterCreateCheckBox(checkId, checkLabel, value) {
     label.className = 'ms-2 text-sm font-medium text-gray-900 dark:text-gray-300';
     label.textContent = checkLabel;
 
-    // AÒadir el checkbox y el label al div
+    // A√±adir el checkbox y el label al div
     div.appendChild(checkbox);
     div.appendChild(label);
 
@@ -2121,11 +2121,11 @@ async function FormMasterGetDataFromQuery(query) {
 //            console.log(DATOS);
 
 //            jsonObject.GetData.forEach(item => {
-//                // Crear una opciÛn
+//                // Crear una opci√≥n
 //                const option = document.createElement('option');
 //                option.value = item[value];  // Asignar idusuario como value
 //                option.textContent = item[textOption];  // Asignar nombre como texto
-//                selectElement.appendChild(option);  // AÒadir la opciÛn al <select>
+//                selectElement.appendChild(option);  // A√±adir la opci√≥n al <select>
 //            });
 //        })
 //        .catch(error => {
@@ -2180,7 +2180,7 @@ function LoadListView(listViewJson) {
 function createTableFromJson(jsonData, formname, path, fieldpk, formtitle) {
     // Verifica si hay datos en el JSON
     if (!jsonData || jsonData.length === 0) {
-        console.error('El JSON est· vacÌo o no es v·lido.');
+        console.error('El JSON est√° vac√≠o o no es v√°lido.');
         return;
     }
 
@@ -2256,7 +2256,7 @@ function createTableFromJson(jsonData, formname, path, fieldpk, formtitle) {
     });
 }
 
-// FunciÛn que redirige a la p·gina con el par·metro id
+// Funci√≥n que redirige a la p√°gina con el par√°metro id
 function redirectToPage(path, fieldpk, id) {
     const url = `${path}?${fieldpk}=${id}`;
     window.location.href = url;
