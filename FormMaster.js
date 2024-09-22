@@ -1392,7 +1392,9 @@ function FormMasterOnInsertSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
+        let jsonString = JSON.stringify(jsonObject);    
+        const error = 'Error al procesar su solicitud: ' + jsonString;
+        showNotification('error', error);
     }
 }
 
@@ -1415,7 +1417,9 @@ function FormMasterOnUpdateSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
+	let jsonString = JSON.stringify(jsonObject);    
+        const error = 'Error al procesar su solicitud: ' + jsonString;
+        showNotification('error', error);
     }
 }
 
@@ -1445,7 +1449,8 @@ function FormMasterOnInsertItemSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        const error = 'Error al procesar su solicitud: ' + jsonObject.toString();
+	let jsonString = JSON.stringify(jsonObject);    
+        const error = 'Error al procesar su solicitud: ' + jsonString;
         showNotification('error', error);
     }
 }
