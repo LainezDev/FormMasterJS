@@ -1,4 +1,4 @@
-const DATE_FORMAT = "yyyy-MM-dd";
+let DATE_FORMAT = "yyyy-MM-dd";
 
 function OnFailed(error) {
     alert(error.get_message());
