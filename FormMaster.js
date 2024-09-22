@@ -1,3 +1,5 @@
+const DATE_FORMAT = "yyyy-MM-dd";
+
 function OnFailed(error) {
     alert(error.get_message());
 };
@@ -140,6 +142,7 @@ function onError(error) {
 };
 
 function loadForm(configJson, GetFormData) {
+    DATE_FORMAT = config.dateformat;
     const formContainer = document.getElementById('form-container');
     const formGroup = document.createElement('form');
     const formName = 'form' + configJson.tablename;
@@ -225,7 +228,7 @@ function fillFormData(data, tableName, fieldpk) {
                     // Para checkboxes, asigna el valor de 'checked'
                     element.checked = value;
                 } else if (element.type === 'date') {
-                    element.value = FormMasterDate(value, 'YYYY-MM-DD');
+                    element.value = FormMasterDateFormat(value, 'YYYY-MM-DD');
                 } else {
                     if (value !== null && value !== undefined) {
                         element.value = value.toString();
@@ -1326,7 +1329,7 @@ function formToJson(formId, prefixID) {
                 if (element.value === '' || element.value === null) {
                     formData[element.name] = null;
                 } else {
-                    const sqlFormattedDate = FormMasterDate(element.value);
+                    const sqlFormattedDate = FormMasterDateFormat(element.value, DATE_FORMAT);
                     formData[element.name] = sqlFormattedDate;
                 }
             } else {
@@ -1484,7 +1487,7 @@ function FormMasterOnUpdateItemSuccess(jsonObject) {
     }
 }
 
-function FormMasterDate(dateString, format = 'YYYY-MM-DD HH:mm:ss') {
+function FormMasterDateFormat(dateString, format = 'YYYY-MM-DD HH:mm:ss') {
     
     const date = new Date(dateString);
 
