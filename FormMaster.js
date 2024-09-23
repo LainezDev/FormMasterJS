@@ -142,7 +142,7 @@ function onError(error) {
 };
 
 function loadForm(configJson, GetFormData) {
-    DATE_FORMAT = configJson.dateformatDB;
+    DATE_FORMAT = configJson.dateformatDB.toUpperCase();
     const formContainer = document.getElementById('form-container');
     const formGroup = document.createElement('form');
     const formName = 'form' + configJson.tablename;
