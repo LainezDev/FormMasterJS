@@ -2225,3 +2225,108 @@ function createAppBar(homeUrl, newFormUrl, SearchUrl, idContainer) {
     });
 
 }
+
+function LoadListView(listViewJson) {
+    
+    const btnNewForm = document.getElementById('newFormBtn');
+    btnNewForm.onclick = function () {
+        clearPkInSessionStorage(listViewJson.fieldpk);
+        window.location.href = listViewJson.formpath;
+    };
+    createTableFromJson(listViewJson.data, listViewJson.formname, listViewJson.formpath, listViewJson.fieldpk, listViewJson.formtitle);
+}
+
+
+function createTableFromJson(jsonData, formname, path, fieldpk, formtitle) {
+    // Verifica si hay datos en el JSON
+    if (!jsonData || jsonData.length === 0) {
+        console.error('El JSON está vacío o no es válido.');
+        return;
+    }
+
+    // Obtiene las claves (columnas) desde el primer objeto del JSON
+    const columns = Object.keys(jsonData[0]);
+    const visibleColumns = columns.filter(column => column !== 'id');
+
+    // Crea la tabla y sus componentes
+    const table = document.createElement('table');
+    table.id = 'listviewTable';
+    table.className = 'display';
+    table.style.width = '100%';
+
+    // Crea el elemento thead y su fila de cabeceras
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    visibleColumns.forEach(column => {
+        const th = document.createElement('th');
+        th.textContent = column;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Crea el elemento tbody y sus filas de datos
+    const tbody = document.createElement('tbody');
+    jsonData.forEach(row => {
+        const tr = document.createElement('tr');
+
+        tr.style.cursor = 'pointer';
+        tr.onclick = function () {
+            redirectToPage(path, fieldpk, row.id);
+        };
+
+        visibleColumns.forEach(column => {
+            const td = document.createElement('td');
+            td.textContent = row[column] !== null ? row[column] : '';
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    // Crea el elemento tfoot y su fila de cabeceras (opcional)
+    const tfoot = document.createElement('tfoot');
+    const footerRow = document.createElement('tr');
+    visibleColumns.forEach(column => {
+        const th = document.createElement('th');
+        th.textContent = column;
+        footerRow.appendChild(th);
+    });
+    tfoot.appendChild(footerRow);
+    table.appendChild(tfoot);
+
+    // Crear el titulo del listview
+    const htitle = document.createElement('h3');
+    htitle.className = 'text-lg font-semibold text-gray-900 dark:text-white mb-8';
+    htitle.innerText = 'Buscar ' + formtitle;
+
+    const container = document.getElementById('form-container');
+    container.innerHTML = ''; 
+    container.appendChild(htitle);
+    container.appendChild(table);
+    new DataTable('#listviewTable', {
+        autoWidth: false,
+        order: [[1]],
+        language: {
+            search: "Buscar:",
+            entries: "Entradas",
+            lengthMenu: "_MENU_ entradas por p\u00E1gina",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+        },
+    });
+}
+
+// Función que redirige a la página con el parámetro id
+function redirectToPage(path, fieldpk, id) {
+    const url = `${path}?${fieldpk}=${id}`;
+    window.location.href = url;
+}
+
+function clearPkInSessionStorage(field) {
+    // Verificar si el valor de fieldpk existe en sessionStorage
+    if (sessionStorage.getItem(field)) {
+        // Eliminar el valor asociado a fieldpk
+        sessionStorage.removeItem(field);
+    }
+}
+
