@@ -1,5 +1,5 @@
-let DATE_FORMAT = "yyyy-MM-dd";
 
+let DATE_FORMAT = "yyyy-MM-dd";
 function OnFailed(error) {
     alert(error.get_message());
 };
@@ -144,6 +144,7 @@ function onError(error) {
 function loadForm(configJson, GetFormData) {
     DATE_FORMAT = configJson.dateformatDB.toUpperCase();
     const formContainer = document.getElementById('form-container');
+    createAppBar(configJson.barbuttonhomeurl, configJson.barbuttonnewformurl, configJson.barbuttonsearchurl, 'form-container')
     const formGroup = document.createElement('form');
     const formName = 'form' + configJson.tablename;
     formGroup.id = formName;
@@ -155,6 +156,8 @@ function loadForm(configJson, GetFormData) {
     principalDiv = document.getElementById("div-principal");
     const formSizeCss = getFormSizeCss(configJson.formsize);
     principalDiv.classList.add(formSizeCss);
+
+    
 
 	if (configJson.tabs) {
 		generateTabs(configJson.tabs, formName, false);
@@ -387,7 +390,10 @@ function generateForm(config, elementID, isModalForm) {
 			label.className = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
 			label.textContent = field.label || field.fieldname;
 			divhtmlElement.appendChild(label);
-		}
+        }
+        if (field.hide) {
+            label.style.display = 'none';
+        }
         //formGroup.appendChild(label);
 
         // Crear el campo basado en el tipo de dato
@@ -546,10 +552,6 @@ function generateForm(config, elementID, isModalForm) {
 
                 });
 
-                if (field.hide) {
-                    inputElement.style.display = 'none';
-                }
-
                 break;
             case 'longtext':
                 inputElement = document.createElement('textarea');
@@ -616,6 +618,9 @@ function generateForm(config, elementID, isModalForm) {
             }
             if (field.unique) {
                 inputElement.setAttribute('data-unique', true);
+            }
+            if (field.hide) {
+                inputElement.style.display = 'none';
             }
             divhtmlElement.appendChild(inputElement);
         }
@@ -1395,9 +1400,7 @@ function FormMasterOnInsertSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        let jsonString = JSON.stringify(jsonObject);    
-        const error = 'Error al procesar su solicitud: ' + jsonString;
-        showNotification('error', error);
+        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
     }
 }
 
@@ -1420,9 +1423,7 @@ function FormMasterOnUpdateSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-	let jsonString = JSON.stringify(jsonObject);    
-        const error = 'Error al procesar su solicitud: ' + jsonString;
-        showNotification('error', error);
+        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
     }
 }
 
@@ -1452,8 +1453,7 @@ function FormMasterOnInsertItemSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-	let jsonString = JSON.stringify(jsonObject);    
-        const error = 'Error al procesar su solicitud: ' + jsonString;
+        const error = 'Error al procesar su solicitud: ' + jsonObject.toString();
         showNotification('error', error);
     }
 }
@@ -1483,7 +1483,7 @@ function FormMasterOnUpdateItemSuccess(jsonObject) {
             showNotification('error', 'Se ha presentado un error con su solicitud.');
         }
     } else {
-        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.error);
+        showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
     }
 }
 
@@ -1860,7 +1860,7 @@ function onDuplicateSuccess(jsonObject) {
                 showNotification('error', 'Se ha presentado un error con su solicitud. ' + formDataJson.error);
             }
         } else {
-            showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.error);
+            showNotification('error', 'Error al procesar su solicitud: ' + jsonObject.toString());
         }
 }
 
@@ -2174,107 +2174,54 @@ function FormMasterCreateSelect(id, options = [], query = null, value, textOptio
     return selectElement;
 }
 
-function LoadListView(listViewJson) {
-    
-    const btnNewForm = document.getElementById('newFormBtn');
-    btnNewForm.onclick = function () {
-        clearPkInSessionStorage(listViewJson.fieldpk);
-        window.location.href = listViewJson.formpath;
-    };
-    createTableFromJson(listViewJson.data, listViewJson.formname, listViewJson.formpath, listViewJson.fieldpk, listViewJson.formtitle);
-}
+function createAppBar(homeUrl, newFormUrl, SearchUrl, idContainer) {
+    const container = document.getElementById(idContainer);
 
+    const appBarHTML = `
+                <div class="fixed top-0 z-40 w-full -translate-x-1/2 bg-white border-t border-gray-200 left-1/2 dark:bg-gray-700 dark:border-gray-600">
+<div class="grid h-full max-w-lg grid-cols-5 mx-auto">
+   <button id="BottomNavigationHome" data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center p-4 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+      <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+         <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+      </svg>
+      <span class="sr-only">Inicio</span>
+   </button>
+   <div id="tooltip-home" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      Inicio
+      <div class="tooltip-arrow" data-popper-arrow></div>
+   </div>
+   <button id="BottomNavigationNewForm" data-tooltip-target="tooltip-post" type="button" class="inline-flex flex-col items-center justify-center p-4 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+      <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+      </svg>
+      <span class="sr-only">Nuevo</span>
+   </button>
+   <div id="tooltip-post" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      Nuevo
+      <div class="tooltip-arrow" data-popper-arrow></div>
+   </div>
+   <button id="BottomNavigationSearch" data-tooltip-target="tooltip-search" type="button" class="inline-flex flex-col items-center justify-center p-4 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+      <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+      </svg>
+      <span class="sr-only">Buscar</span>
+   </button>
+   <div id="tooltip-search" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      Buscar
+      <div class="tooltip-arrow" data-popper-arrow></div>
+   </div>   
+</div>
+            `;
 
-function createTableFromJson(jsonData, formname, path, fieldpk, formtitle) {
-    // Verifica si hay datos en el JSON
-    if (!jsonData || jsonData.length === 0) {
-        console.error('El JSON está vacío o no es válido.');
-        return;
-    }
-
-    // Obtiene las claves (columnas) desde el primer objeto del JSON
-    const columns = Object.keys(jsonData[0]);
-    const visibleColumns = columns.filter(column => column !== 'id');
-
-    // Crea la tabla y sus componentes
-    const table = document.createElement('table');
-    table.id = 'listviewTable';
-    table.className = 'display';
-    table.style.width = '100%';
-
-    // Crea el elemento thead y su fila de cabeceras
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    visibleColumns.forEach(column => {
-        const th = document.createElement('th');
-        th.textContent = column;
-        headerRow.appendChild(th);
+    container.innerHTML = appBarHTML;
+    document.getElementById('BottomNavigationHome').addEventListener('click', function () {
+        window.location.href = homeUrl;
     });
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
-
-    // Crea el elemento tbody y sus filas de datos
-    const tbody = document.createElement('tbody');
-    jsonData.forEach(row => {
-        const tr = document.createElement('tr');
-
-        tr.style.cursor = 'pointer';
-        tr.onclick = function () {
-            redirectToPage(path, fieldpk, row.id);
-        };
-
-        visibleColumns.forEach(column => {
-            const td = document.createElement('td');
-            td.textContent = row[column] !== null ? row[column] : '';
-            tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
+    document.getElementById('BottomNavigationNewForm').addEventListener('click', function () {
+        window.location.href = newFormUrl;
     });
-    table.appendChild(tbody);
-
-    // Crea el elemento tfoot y su fila de cabeceras (opcional)
-    const tfoot = document.createElement('tfoot');
-    const footerRow = document.createElement('tr');
-    visibleColumns.forEach(column => {
-        const th = document.createElement('th');
-        th.textContent = column;
-        footerRow.appendChild(th);
+    document.getElementById('BottomNavigationSearch').addEventListener('click', function () {
+        window.location.href = SearchUrl;
     });
-    tfoot.appendChild(footerRow);
-    table.appendChild(tfoot);
 
-    // Crear el titulo del listview
-    const htitle = document.createElement('h3');
-    htitle.className = 'text-lg font-semibold text-gray-900 dark:text-white mb-8';
-    htitle.innerText = 'Buscar ' + formtitle;
-
-    const container = document.getElementById('form-container');
-    container.innerHTML = ''; 
-    container.appendChild(htitle);
-    container.appendChild(table);
-    new DataTable('#listviewTable', {
-        autoWidth: false,
-        order: [[1]],
-        language: {
-            search: "Buscar:",
-            entries: "Entradas",
-            lengthMenu: "_MENU_ entradas por p\u00E1gina",
-            info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
-        },
-    });
 }
-
-// Función que redirige a la página con el parámetro id
-function redirectToPage(path, fieldpk, id) {
-    const url = `${path}?${fieldpk}=${id}`;
-    window.location.href = url;
-}
-
-function clearPkInSessionStorage(field) {
-    // Verificar si el valor de fieldpk existe en sessionStorage
-    if (sessionStorage.getItem(field)) {
-        // Eliminar el valor asociado a fieldpk
-        sessionStorage.removeItem(field);
-    }
-}
-
