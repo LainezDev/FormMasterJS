@@ -2246,7 +2246,7 @@ function createTableFromJson(jsonData, formname, path, fieldpk, formtitle) {
     // Crear el titulo del listview
     const htitle = document.createElement('h3');
     htitle.className = 'text-lg font-semibold text-gray-900 dark:text-white mb-8';
-    htitle.innerText = 'Lista ' + formtitle;
+    htitle.innerText = 'Buscar ' + formtitle;
 
     const container = document.getElementById('form-container');
     container.innerHTML = ''; 
